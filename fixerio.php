@@ -56,7 +56,7 @@ final class FixerIO implements Fixer {
     /**
      * Secret API key
      */
-    const API_KEY = 'ca360d15a7f3a7fb0997c759e7019098';
+    const API_KEY = 'API_SECRET_KEY';
 
     private function __construct() {
 
