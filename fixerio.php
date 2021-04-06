@@ -3,7 +3,13 @@ declare(strict_types=1);
 
 namespace Thelema\Forex;
 
+/**
+ * Interface Fixer
+ *
+ * @package Thelema\Forex
+ */
 interface Fixer {
+
     public function symbols();
 
     public function latest(string $base = null, string $rates = null);
@@ -12,22 +18,57 @@ interface Fixer {
 
     public function convert(string $from = null, string $to = null, int $amount = null);
 
-    public function period(string $start_date = null, string $end_date = null, string $base = null, string $rates = null);
+    public function period(
+        string $start_date = null,
+        string $end_date = null,
+        string $base = null,
+        string $rates = null
+    );
 
-    public function fluctuation(string $start_date = null, string $end_date = null, string $base = null, string $rates = null);
+    public function fluctuation(
+        string $start_date = null,
+        string $end_date = null,
+        string $base = null,
+        string $rates = null
+    );
 };
 
+/**
+ * Class FixerIO
+ *
+ * @package Thelema\Forex
+ */
 final class FixerIO implements Fixer {
 
+    /**
+     * Singleton
+     * @var null
+     */
     private static $instance = null;
 
     public $result = null;
 
+    /**
+     * Fixer API-server
+     */
     const API_SRV = 'http://data.fixer.io/api/';
+
+    /**
+     * Secret API key
+     */
     const API_KEY = 'ca360d15a7f3a7fb0997c759e7019098';
 
-    private function __construct() {}
+    private function __construct() {
 
+    }
+
+    /**
+     * Simple rest HTTP-client
+     *
+     * @param string|null $endpoint
+     * @param array       $data
+     * @return mixed|null|string
+     */
     private function request(string $endpoint = null, array $data = []) {
 
         $data['access_key'] = self::API_KEY;
